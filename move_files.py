@@ -137,7 +137,6 @@ class Move_Files():
             if append_date != False:
                 base_filename = self.append_date(base_filename,ext)
             sftp.put(target, remotepath=os.path.join(destination,base_filename+ext))
-            # sftp://144.160.149.152/m10375
             sftp.close()
         else:
             sftp.put(target)
@@ -175,7 +174,7 @@ class Move_Files():
         sftp.listdir_attr()
         sftp.close()
     
-    def email(self, email_address, email_message, subject):
+    def email(self, email_address, email_message, subject, from):
         """Emails users the message using the smtp server
         Arguments: email_address(needs to be a list), email_message(str), subject(str)
         Returns: None
@@ -183,7 +182,7 @@ class Move_Files():
         msg = MIMEMultipart()
         recipients = [i for i in email_address]
         message = email_message
-        msg['From'] = 'python@dtr-python-script.cydcor.com'
+        msg['From'] = from
         msg['To'] = ';'.join(recipients)
         print(';'.join(recipients))
         msg['Subject'] = subject
